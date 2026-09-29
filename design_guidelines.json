@@ -1,0 +1,224 @@
+{
+  "project_title": "Crop Creation (Keerthan KA20 Photography) - Awwwards-Level Studio Portfolio & Management",
+  "archetype": "ARCHETYPE 5: LUXURY & DARK CINEMATIC (Deep Obsidian + Warm Amber Gold)",
+  "theme": "dark",
+  "colors": {
+    "surfaces": [
+      {
+        "name": "page",
+        "kind": "solid",
+        "bg": "#0B0C0E",
+        "on_bg": "#F5F3EF",
+        "on_bg_muted": "#A1A1AA",
+        "roles": {
+          "accent_text": "#E5B869",
+          "link": "#F5D08A",
+          "link_hover": "#FFFFFF",
+          "border": "#27272A",
+          "border_gold": "rgba(229, 184, 105, 0.25)",
+          "tag_bg": "rgba(229, 184, 105, 0.08)"
+        }
+      },
+      {
+        "name": "panel",
+        "kind": "solid",
+        "bg": "#121316",
+        "on_bg": "#F5F3EF",
+        "on_bg_muted": "#9CA3AF",
+        "roles": {
+          "border": "#27272A",
+          "border_focus": "#D4AF37",
+          "card_hover_bg": "#181A1F"
+        }
+      },
+      {
+        "name": "inverse",
+        "kind": "solid",
+        "bg": "#F5F3EF",
+        "on_bg": "#0B0C0E",
+        "on_bg_muted": "#52525B",
+        "roles": {
+          "border": "#E4E4E7"
+        }
+      },
+      {
+        "name": "hero",
+        "kind": "image",
+        "contrast_against": "#050607",
+        "guarantee": "scrim: linear-gradient(180deg, rgba(11,12,14,0.6) 0%, rgba(11,12,14,0.85) 60%, #0B0C0E 100%)",
+        "on_bg": "#FFFFFF",
+        "on_bg_muted": "#D1D5DB",
+        "roles": {
+          "link": "#F5D08A",
+          "error": "#F87171",
+          "success": "#34D399",
+          "badge": "#E5B869"
+        }
+      },
+      {
+        "name": "glass_header",
+        "kind": "glass",
+        "contrast_against": "#101114",
+        "guarantee": "backdrop-blur-xl bg-[#0B0C0E]/80 border-b border-white/10",
+        "on_bg": "#F5F3EF",
+        "on_bg_muted": "#9CA3AF",
+        "roles": {
+          "link": "#E5B869",
+          "cta_bg": "#D4AF37",
+          "cta_text": "#0B0C0E"
+        }
+      },
+      {
+        "name": "admin_sidebar",
+        "kind": "solid",
+        "bg": "#0E0F12",
+        "on_bg": "#F5F3EF",
+        "on_bg_muted": "#9CA3AF",
+        "roles": {
+          "active_bg": "rgba(229,184,105,0.12)",
+          "active_text": "#E5B869",
+          "border": "#1F2127"
+        }
+      }
+    ],
+    "accent": "#D4AF37",
+    "accent_hover": "#E5C058",
+    "on_accent": "#0B0C0E"
+  },
+  "typography": {
+    "fonts": {
+      "heading": "Playfair Display, serif",
+      "sans": "DM Sans, sans-serif",
+      "mono": "IBM Plex Mono, monospace"
+    },
+    "font_imports": [
+      "@import \"@fontsource-variable/playfair-display\";",
+      "@import \"@fontsource-variable/dm-sans\";",
+      "@import \"@fontsource/ibm-plex-mono\";"
+    ],
+    "scale_px": {
+      "display": 60,
+      "h1": 48,
+      "h2": 36,
+      "h3": 24,
+      "h4": 20,
+      "body": 16,
+      "caption": 14
+    },
+    "rules": {
+      "h1_style": "font-serif tracking-tight font-normal sm:font-medium leading-tight text-white",
+      "h2_style": "font-serif tracking-tight font-normal sm:font-medium text-white",
+      "eyebrow_style": "font-mono uppercase text-xs tracking-[0.25em] text-[#D4AF37]",
+      "body_style": "font-sans leading-relaxed text-[#A1A1AA]",
+      "meta_style": "font-mono text-xs text-[#71717A]"
+    }
+  },
+  "entry_surfaces": {
+    "/": "split hero with kinetic masked text reveal on left, floating golden-framed cinematic wedding carousel on right with dark glass header and live audio-visual feel",
+    "/admin": "branded dark obsidian split panel — studio identity summary on left with quick stats, secure admin authentication form on right with golden accents"
+  },
+  "brand_identity": {
+    "name": "Crop Creation",
+    "subtitle": "Keerthan KA20 Photography",
+    "founder": "Keerthan Kulal",
+    "location": "JQF2+W44, Kundapur - Agumbe Hwy, Balkur Proper, Karnataka 576211",
+    "service_regions": ["Kundapura", "Udupi", "Mangalore", "Coastal Karnataka"],
+    "phone": "+91 95914 28115",
+    "phone_display": "+91 95914 28115",
+    "instagram": "@keerthan_ka20_photography",
+    "instagram_followers": "1,568+",
+    "google_rating": 4.9,
+    "review_count": 51,
+    "hours": "Open Daily · Closes 8:30 PM IST",
+    "svg_logo": "<svg viewBox='0 0 40 40' fill='none' class='w-8 h-8'><rect width='40' height='40' rx='8' fill='#181A1F' stroke='#D4AF37' stroke-width='1.5'/><circle cx='20' cy='20' r='9' stroke='#E5B869' stroke-width='1.5' stroke-dasharray='2 2'/><circle cx='20' cy='20' r='4' fill='#D4AF37'/><path d='M10 14L14 10M30 14L26 10M10 26L14 30M30 26L26 30' stroke='#E5B869' stroke-width='1.5'/></svg>"
+  },
+  "image_urls": [
+    {
+      "category": "hero_and_wedding",
+      "url": "https://images.unsplash.com/photo-1722952934708-749c22eb2e58?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NDQ2NDJ8MHwxfHNlYXJjaHwxfHxpbmRpYW4lMjB3ZWRkaW5nJTIwYnJpZGUlMjBncm9vbXxlbnwwfHx8fDE3OTA2NTg4MDB8MA&ixlib=rb-4.1.0&q=85",
+      "description": "Grand Indian wedding bride and groom in regal gold and red attire with atmospheric warm lighting",
+      "usage": "Hero background / Featured wedding hero frame"
+    },
+    {
+      "category": "wedding_traditional",
+      "url": "https://images.unsplash.com/photo-1630526720753-aa4e71acf67d?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NDQ2NDJ8MHwxfHNlYXJjaHwyfHxpbmRpYW4lMjB3ZWRkaW5nJTIwYnJpZGUlMjBncm9vbXxlbnwwfHx8fDE3OTA2NTg4MDB8MA&ixlib=rb-4.1.0&q=85",
+      "description": "Couple in traditional Indian wedding attire standing majestically on a riverside rock",
+      "usage": "Portfolio Gallery - Traditional Wedding & Outdoor candid shoot"
+    },
+    {
+      "category": "wedding_forest_candid",
+      "url": "https://images.unsplash.com/photo-1735052712464-9d24b69be5f5?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NDQ2NDJ8MHwxfHNlYXJjaHwzfHxpbmRpYW4lMjB3ZWRkaW5nJTIwYnJpZGUlMjBncm9vbXxlbnwwfHx8fDE3OTA2NTg4MDB8MA&ixlib=rb-4.1.0&q=85",
+      "description": "Bride and groom walking softly on a serene path in the woods",
+      "usage": "Portfolio Gallery - Wedding Story Series"
+    },
+    {
+      "category": "wedding_portrait",
+      "url": "https://images.unsplash.com/photo-1665960213508-48f07086d49c?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NDQ2NDJ8MHwxfHNlYXJjaHw0fHxpbmRpYW4lMjB3ZWRkaW5nJTIwYnJpZGUlMjBncm9vbXxlbnwwfHx8fDE3OTA2NTg4MDB8MA&ixlib=rb-4.1.0&q=85",
+      "description": "Man and woman in ornate traditional Indian attire with gold jewellery",
+      "usage": "Services - Candid & Royal Wedding Photography"
+    },
+    {
+      "category": "pre_wedding_creative",
+      "url": "https://images.unsplash.com/photo-1686294588684-9607a670181c?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjA3MDB8MHwxfHNlYXJjaHw0fHxwcmUlMjB3ZWRkaW5nJTIwcGhvdG9zaG9vdCUyMGNvdXBsZXxlbnwwfHx8fDE3OTA2NTg4MDB8MA&ixlib=rb-4.1.0&q=85",
+      "description": "Couple captured artistically through a circular lens filter reflection",
+      "usage": "Services - Pre-wedding Cinematic concepts & Creative Shoots"
+    },
+    {
+      "category": "pre_wedding_ethnic",
+      "url": "https://images.unsplash.com/photo-1715285977619-6d9357168f46?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjA3MDB8MHwxfHNlYXJjaHwxfHxwcmUlMjB3ZWRkaW5nJTIwcGhvdG9zaG9vdCUyMGNvdXBsZXxlbnwwfHx8fDE3OTA2NTg4MDB8MA&ixlib=rb-4.1.0&q=85",
+      "description": "South Indian style ethnic pre-wedding shoot in a lush meadow",
+      "usage": "Portfolio Gallery - Pre-wedding Collection"
+    },
+    {
+      "category": "pre_wedding_beach",
+      "url": "https://images.unsplash.com/photo-1745148521468-d2df1052fce4?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjA3MDB8MHwxfHNlYXJjaHwzfHxwcmUlMjB3ZWRkaW5nJTIwcGhvdG9zaG9vdCUyMGNvdXBsZXxlbnwwfHx8fDE3OTA2NTg4MDB8MA&ixlib=rb-4.1.0&q=85",
+      "description": "Couple dancing playfully on the coastal beach (Kundapura/Malpe vibes)",
+      "usage": "Portfolio Gallery - Coastal Pre-wedding & Videography"
+    },
+    {
+      "category": "studio_camera_craft",
+      "url": "https://images.unsplash.com/photo-1516035069371-29a1b244cc32?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjA2OTV8MHwxfHNlYXJjaHwxfHxjYW1lcmElMjBsZW5zJTIwcGhvdG9ncmFwaGVyJTIwc3R1ZGlvfGVufDB8fHx8MTc5MDY1ODgwMHww&ixlib=rb-4.1.0&q=85",
+      "description": "Flat lay of professional DSLR camera and prime lenses on a matte dark table",
+      "usage": "About Studio & Craftsmanship section / Digital Work showcase"
+    },
+    {
+      "category": "studio_lens_close_up",
+      "url": "https://images.unsplash.com/photo-1512790182412-b19e6d62bc39?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjA2OTV8MHwxfHNlYXJjaHwzfHxjYW1lcmElMjBsZW5zJTIwcGhvdG9ncmFwaGVyJTIwc3R1ZGlvfGVufDB8fHx8MTc5MDY1ODgwMHww&ixlib=rb-4.1.0&q=85",
+      "description": "Close up glass reflection of high-precision cinema camera lens",
+      "usage": "Equipment & 4K Videography banner / Custom album printing showcase"
+    }
+  ],
+  "layout_and_grids": {
+    "hero_section": "12-column grid. Left col-span-7 with line-by-line staggered reveal ('Timeless Frames.', 'Crafted in Karnataka.'), ratings chip (4.9 Stars / 51 Google Reviews), quick booking CTA, and direct WhatsApp connect. Right col-span-5 interactive 3D tilted photo stack with hover glow and dynamic gold borders.",
+    "ticker_marquee": "Editorial Ribbon with low contrast gold-toned text drifting smoothly at 30s duration: 'WEDDINGS · PRE-WEDDING CINEMA · CANDID STORIES · PREMIUM FLUSH-MOUNT ALBUMS · BESPOKE FRAMES · BALKUR, KUNDAPURA · UDUPI · MANGALORE'.",
+    "services_bento": "Asymmetric Bento Grid with 6 key services:\n1. Wedding & Candid (col-span-8 row-span-2) with photo spotlight & video teaser badge\n2. Pre-Wedding Cinema (col-span-4 row-span-1) with drone & 4K badges\n3. Premium Album Creation & HD Printing (col-span-4 row-span-1) featuring silk/leather textures\n4. Custom Frames & Large Format Banners (col-span-4 row-span-1) with size selector preview\n5. 4K Videography & Teasers (col-span-4 row-span-1)\n6. Digital Work & Restoration (col-span-4 row-span-1).",
+    "gallery_section": "Filterable Masonry/Grid (All, Weddings, Pre-Wedding, Candid, Albums, Frames) with interactive Lightbox, EXIF-inspired metadata display (Shutter, Lens, Location: Kundapura/Balkur/Malpe), and high-resolution zoom.",
+    "pricing_and_packages": "3 Curated Wedding Packages (Essential Memory, Royal Wedding Cinema, Signature Crop Bespoke) with transparent deliverables (Hours, Photographers, 4K Teaser, Luxury Album, Frame sizes, Drone coverage) + Custom Quote Builder.",
+    "testimonials_and_reviews": "Google Reviews Spotlight with 4.9 badge, verified Google review chips, quote cards featuring Anusha Kulal ('Photos and videos good quality and best service...'), Manjunath M ('Affordable pricing with top facility...'), and 4 additional verified client stories.",
+    "interactive_booking_flow": "Step-by-step Booking & Quote calculator (Event Type, Date Picker via Shadcn Calendar, Region in Coastal Karnataka, Package preference, Notes) with instant confirmation and DB save + WhatsApp direct payload.",
+    "studio_info_map_hours": "Split section: Dark stylized map view with pinpoint (JQF2+W44 Balkur Proper, Hwy 576211), live status indicator (Open now · Closes 8:30 PM), direct call & directions button.",
+    "admin_dashboard": "Clean Obsidian management portal at `/admin`: Login screen, Tabs for (1) Received Inquiries & Status management (New, Contacted, Booked, Archived), (2) Gallery Manager (Upload with title/category/caption, Toggle visibility, Delete), (3) Quick Studio Stats & Package editor."
+  },
+  "motion_and_interactions": {
+    "smooth_scroll": "Lenis momentum smooth scrolling integrated seamlessly",
+    "hero_reveal": "Staggered line mask animation using `motion.div` with initial `y: 40, opacity: 0` to `y: 0, opacity: 1` transition duration 0.9s cubic-bezier(0.16, 1, 0.3, 1)",
+    "card_hover": "Subtle 3D perspective tilt (`rotateX`, `rotateY`), 1px gold border glow on mousemove, and image scale `scale-105` with smooth 500ms easing",
+    "cursor_element": "Custom subtle trailing lens ring or refined hover state on gallery photos",
+    "micro_interactions": "Haptic style button press (`scale-95`), floating badge pulse, Sonner toast confirmations for enquiry submits and admin actions"
+  },
+  "accessibility": {
+    "contrast_check": "All text adheres to APCA / WCAG AA standard (Minimum 4.5:1 on body text against #0B0C0E and #121316 surfaces; Minimum 3:1 on large 24px+ golden display headings).",
+    "prefers_reduced_motion": "All motion transitions respect `prefers-reduced-motion: reduce` by disabling spring loops and defaulting to instant opacity shifts.",
+    "test_attributes": "All buttons, inputs, links, tabs, and status badges MUST include semantic `data-testid` attributes (e.g. `data-testid=\"hero-book-btn\"`, `data-testid=\"booking-name-input\"`, `data-testid=\"gallery-filter-weddings\"`, `data-testid=\"admin-login-submit\"`)."
+  },
+  "instructions_to_main_agent": [
+    "1. Replace index.html opening <html> with <html class='dark'> and use dark-first luxury obsidian palette with warm gold accents.",
+    "2. In frontend/src/index.css, import '@fontsource-variable/playfair-display', '@fontsource-variable/dm-sans', and '@fontsource/ibm-plex-mono'. Set --font-heading: 'Playfair Display Variable', serif; and --font-sans: 'DM Sans Variable', sans-serif; --font-mono: 'IBM Plex Mono', monospace;.",
+    "3. Seed rich realistic studio data in backend/seed.py: include all 7 studio services, 12+ pre-seeded gallery items using the Unsplash photos provided with categories, real customer reviews (Anusha Kulal, Manjunath M, etc.), packages, and initial sample enquiries.",
+    "4. Ensure backend endpoints support: GET/POST `/api/inquiries`, PATCH `/api/inquiries/{id}/status`, GET/POST/DELETE `/api/gallery`, POST `/api/auth/login`, GET `/api/auth/me`, and POST `/api/auth/logout`.",
+    "5. Ensure the frontend has routes `/` (Studio Portfolio & Booking) and `/admin` (Admin Management Portal). Provide admin demo credentials in `memory/test_credentials.md` (e.g. admin@cropcreation.in / studio2026).",
+    "6. Build an interactive Lightbox for the gallery that opens on click with full-res zoom and EXIF detail overlay.",
+    "7. Include direct WhatsApp booking action (`https://wa.me/919591428115?text=...`) and direct Call button.",
+    "8. Ensure all forms and interactive controls use Shadcn Base-Nova components with dark custom styling, and test all flows end to end."
+  ]
+}
