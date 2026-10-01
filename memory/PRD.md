@@ -43,19 +43,23 @@ Build a website for "Crop Creation" (Keerthan KA20 Photography), a photo studio 
 - Admin: admin@cropcreation.in / studio2026 (see memory/test_credentials.md)
 - Demo customer: demo@client.com / client2026
 
+## Implemented (1 Oct 2026 — iteration 3)
+- Real signature logo (user-uploaded) integrated: transparent-background white script in navbar, portal, admin, footer + KA20 favicon
+- Download All (ZIP): GET /api/deliveries/zip (customer's own files; admin can pass ?user_email=), verified zip contains all delivered originals
+- Admin credentials changed to cropcreation1@gmail.com / Crop@KA20@2020 — startup now deletes any other admin accounts so only this login works
+- Enquiry email alerts now go to the owner's real inbox (cropcreation1@gmail.com) — send verified (202)
+- Top nav has Client Login + Studio Login links; footer has "Developed by Sinchana Kulal · sinchanakulal04@gmail.com"
+
 ## Pending user inputs
-- Real logo image (re-upload — earlier uploads were studio photos)
-- Owner's real email address for enquiry alerts (current placeholder is not a real inbox)
-- Twilio Account SID + Auth Token for WhatsApp alerts (join sandbox from owner phone)
+- Twilio Account SID + Auth Token for WhatsApp alerts (email alerts already live)
 
 ## Backlog
-- P1: Replace stock placeholders with real Instagram portfolio photos (owner uploads via admin)
+- P1: Replace stock placeholders with real portfolio photos (owner uploads via admin)
 - P1: Wedding packages/pricing section (Essential, Royal, Signature)
-- P2: Download-all-as-ZIP for client deliveries
 - P2: True Instagram API auto-sync (needs Meta app + 60-day token refresh)
 - P2: Delivery expiry dates / per-folder organization
 
 ## Next tasks
-1. Collect owner's real email + Twilio credentials → alerts fully live
-2. Swap in real logo
-3. Packages section
+1. Add Twilio credentials → WhatsApp alerts live
+2. Packages section
+3. Owner uploads real shoot photos

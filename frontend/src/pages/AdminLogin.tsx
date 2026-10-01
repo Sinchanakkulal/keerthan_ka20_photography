@@ -58,7 +58,7 @@ export default function AdminLogin() {
                 id="admin-email"
                 type="email"
                 autoComplete="username"
-                placeholder="admin@cropcreation.in"
+                placeholder="cropcreation1@gmail.com"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 data-testid="admin-login-email-input"

@@ -310,6 +310,9 @@ async def seed_admin():
     elif not verify_password(password, existing["password_hash"]):
         await db.users.update_one({"email": email}, {"$set": {"password_hash": hash_password(password)}})
         logger.info("Admin password refreshed from env")
+    removed = await db.users.delete_many({"role": "admin", "email": {"$ne": email}})
+    if removed.deleted_count:
+        logger.info("Removed %d stale admin account(s); only %s is admin", removed.deleted_count, email)
 
 
 async def ensure_app_indexes():
@@ -727,6 +730,37 @@ async def my_deliveries(user: dict = Depends(get_current_user)):
         {"user_email": user["email"], "is_deleted": {"$ne": True}}, {"_id": 0}
     ).sort("created_at", -1).to_list(1000)
     return [DeliveryFile(**d) for d in docs]
+
+
+@api_router.get("/deliveries/zip")
+async def download_deliveries_zip(user_email: Optional[str] = None, user: dict = Depends(get_current_user)):
+    import io
+    import zipfile
+
+    email = user["email"]
+    if user["role"] == "admin" and user_email:
+        email = user_email.strip().lower()
+    docs = await db.delivery_files.find({"user_email": email, "is_deleted": {"$ne": True}}, {"_id": 0}).to_list(1000)
+    if not docs:
+        raise HTTPException(status_code=404, detail="No files to download yet")
+    buf = io.BytesIO()
+    seen = {}
+    with zipfile.ZipFile(buf, "w", zipfile.ZIP_DEFLATED) as zf:
+        for d in docs:
+            data, _ = await asyncio.to_thread(get_object, d["storage_path"])
+            name = d["original_filename"]
+            if name in seen:
+                stem, dot, ext = name.rpartition(".")
+                name = f"{stem}-{seen[name]}{dot}{ext}" if dot else f"{name}-{seen[d['original_filename']]}"
+                seen[d["original_filename"]] += 1
+            else:
+                seen[name] = 1
+            zf.writestr(name, data)
+    return RawResponse(
+        content=buf.getvalue(),
+        media_type="application/zip",
+        headers={"Content-Disposition": 'attachment; filename="KeerthanKA20-delivery.zip"'},
+    )
 
 
 @api_router.delete("/deliveries/{file_id}")

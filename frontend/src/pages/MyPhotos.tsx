@@ -80,6 +80,16 @@ export default function MyPhotos() {
           or hit download to keep it forever.
         </p>
 
+        {files && files.length > 0 && (
+          <a
+            href="/api/deliveries/zip"
+            className="mt-6 inline-flex w-fit items-center gap-2 rounded-full bg-gold px-6 py-3 text-sm font-semibold text-obsidian transition-transform duration-300 hover:scale-[1.03] active:scale-95"
+            data-testid="myphotos-download-all"
+          >
+            <Download className="h-4 w-4" /> Download All (ZIP)
+          </a>
+        )}
+
         {isLoading && <div className="mt-12 h-40 animate-pulse rounded-xl bg-panel" data-testid="myphotos-loading-grid" />}
 
         {!isLoading && (!files || files.length === 0) && (
