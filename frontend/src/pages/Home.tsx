@@ -8,6 +8,7 @@ import { Gallery } from "@/components/Gallery";
 import { Reviews } from "@/components/Reviews";
 import { Booking } from "@/components/Booking";
 import { Contact } from "@/components/Contact";
+import { InstaStrip } from "@/components/InstaStrip";
 import { Footer } from "@/components/Footer";
 
 export default function Home() {
@@ -25,6 +26,7 @@ export default function Home() {
         <Reviews />
         <Booking />
         <Contact />
+        <InstaStrip />
       </main>
       <Footer />
     </div>

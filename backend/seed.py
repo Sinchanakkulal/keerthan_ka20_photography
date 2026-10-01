@@ -1,8 +1,14 @@
 import asyncio
 import uuid
 from datetime import datetime, timezone
+from pathlib import Path
+
+import bcrypt
 
 from lib.db import db, ensure_indexes
+
+DEMO_CUSTOMER_EMAIL = "demo@client.com"
+DEMO_CUSTOMER_PASSWORD = "client2026"
 
 
 def _ts() -> str:
@@ -47,10 +53,54 @@ async def seed_data():
         ]
         await db.gallery.insert_many(docs)
         print(f"Seeded {len(docs)} gallery items")
+
     if await db.enquiries.count_documents({}) == 0:
         docs = [{"id": str(uuid.uuid4()), **e, "created_at": _ts()} for e in ENQUIRY_SEED]
         await db.enquiries.insert_many(docs)
         print(f"Seeded {len(docs)} enquiries")
+
+    if not await db.allowed_emails.find_one({"email": DEMO_CUSTOMER_EMAIL}):
+        await db.allowed_emails.insert_one({
+            "id": str(uuid.uuid4()),
+            "email": DEMO_CUSTOMER_EMAIL,
+            "note": "Demo client account",
+            "created_at": _ts(),
+        })
+        print("Seeded demo allowed email")
+
+    if not await db.users.find_one({"email": DEMO_CUSTOMER_EMAIL}):
+        await db.users.insert_one({
+            "id": str(uuid.uuid4()),
+            "email": DEMO_CUSTOMER_EMAIL,
+            "password_hash": bcrypt.hashpw(DEMO_CUSTOMER_PASSWORD.encode("utf-8"), bcrypt.gensalt()).decode("utf-8"),
+            "name": "Demo Client",
+            "role": "customer",
+            "created_at": _ts(),
+        })
+        print("Seeded demo customer")
+
+    if await db.delivery_files.count_documents({}) == 0:
+        sample = Path("/app/frontend/public/studio/studio-albums.png")
+        if sample.exists():
+            try:
+                from server import put_object
+                data = sample.read_bytes()
+                result = await asyncio.to_thread(put_object, f"crop-creation/deliveries/{uuid.uuid4()}.png", data, "image/png")
+                await db.delivery_files.insert_one({
+                    "id": str(uuid.uuid4()),
+                    "user_email": DEMO_CUSTOMER_EMAIL,
+                    "storage_path": result["path"],
+                    "original_filename": "Album-Samples.png",
+                    "content_type": "image/png",
+                    "kind": "image",
+                    "size": result.get("size", len(data)),
+                    "caption": "Welcome sample from the studio",
+                    "is_deleted": False,
+                    "created_at": _ts(),
+                })
+                print("Seeded demo delivery file")
+            except Exception as e:
+                print(f"Demo delivery seed skipped: {e}")
 
 
 if __name__ == "__main__":

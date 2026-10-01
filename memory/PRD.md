@@ -30,17 +30,32 @@ Build a website for "Crop Creation" (Keerthan KA20 Photography), a photo studio 
 - Admin (/admin/login → /admin): JWT cookie auth, brute-force lockout, enquiries table with status management, gallery manager (upload via object storage, hide/show, delete)
 - Backend verified: all endpoints curl-tested incl. upload round-trip through public URL
 
+## Implemented (1 Oct 2026 — iteration 2)
+- Rebrand: main name now "Keerthan KA20 Photography", "Crop Creation" as sub-name; hero headline "You Dream It, We Design It."; interim "K" monogram logo (user's real logo image pending re-upload)
+- Client portal (/portal): register (email+password, whitelist-gated) + login; /my-photos shows full-quality delivered photos/videos with preview lightbox, video player, and original-file download
+- Admin whitelist: only studio-approved emails can register (allowed_emails collection)
+- Admin Clients & Delivery tab: approve/remove emails, view registered customers, upload photos (25MB) & videos (300MB) to a specific client, delete deliveries
+- Enquiry alerts: email via Emergent managed email (verified working; OWNER_ALERT_EMAIL placeholder must be replaced with the owner's real email) + Twilio WhatsApp sender that auto-activates when TWILIO_ACCOUNT_SID/TWILIO_AUTH_TOKEN are added to backend/.env
+- Owner-curated Instagram strip: admin "Insta Strip" tab pins photos (caption + optional post link); public strip above footer links back to @keerthan_ka20_photography
+- Deliveries served via auth-gated route; public /api/files blocks delivery paths
+
 ## Credentials
 - Admin: admin@cropcreation.in / studio2026 (see memory/test_credentials.md)
+- Demo customer: demo@client.com / client2026
+
+## Pending user inputs
+- Real logo image (re-upload — earlier uploads were studio photos)
+- Owner's real email address for enquiry alerts (current placeholder is not a real inbox)
+- Twilio Account SID + Auth Token for WhatsApp alerts (join sandbox from owner phone)
 
 ## Backlog
 - P1: Replace stock placeholders with real Instagram portfolio photos (owner uploads via admin)
 - P1: Wedding packages/pricing section (Essential, Royal, Signature)
-- P2: WhatsApp/Resend notification to owner on new enquiry
-- P2: Multi-photo lightbox zoom + EXIF edit in admin
-- P2: Google reviews live sync
+- P2: Download-all-as-ZIP for client deliveries
+- P2: True Instagram API auto-sync (needs Meta app + 60-day token refresh)
+- P2: Delivery expiry dates / per-folder organization
 
 ## Next tasks
-1. Owner uploads real shoot photos in Gallery Manager
-2. Add pricing/packages section
-3. Enquiry notifications (WhatsApp/email)
+1. Collect owner's real email + Twilio credentials → alerts fully live
+2. Swap in real logo
+3. Packages section

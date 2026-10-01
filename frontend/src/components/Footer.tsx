@@ -1,4 +1,5 @@
 import { Phone } from "lucide-react";
+import { Link } from "react-router-dom";
 import { SiInstagram } from "@icons-pack/react-simple-icons";
 import { Logo } from "@/components/Logo";
 import { AdminHeaderLink } from "@/components/Navbar";
@@ -64,7 +65,16 @@ export function Footer() {
           <p className="font-mono text-[11px] text-zinc-500">
             © 2026 {SITE.name} · {SITE.tagline} · {SITE.owner}
           </p>
-          <AdminHeaderLink />
+          <div className="flex items-center gap-5">
+            <Link
+              to="/portal"
+              data-testid="footer-client-login-link"
+              className="font-mono text-[11px] uppercase tracking-[0.2em] text-zinc-500 transition-colors hover:text-gold-soft"
+            >
+              Client Login
+            </Link>
+            <AdminHeaderLink />
+          </div>
         </div>
       </div>
     </footer>

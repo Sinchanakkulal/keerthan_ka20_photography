@@ -1,12 +1,16 @@
 import { useQuery } from "@tanstack/react-query";
 import { apiGet, apiPost, ApiError } from "@/lib/api";
 
-export interface AdminUser {
+export type UserRole = "admin" | "customer";
+
+export interface SessionUser {
   id: string;
   email: string;
   name: string;
-  role: string;
+  role: UserRole;
 }
+
+export type AdminUser = SessionUser;
 
 export interface Enquiry {
   id: string;
@@ -33,32 +37,84 @@ export interface GalleryItem {
   created_at: string;
 }
 
+export interface AllowedEmail {
+  id: string;
+  email: string;
+  note?: string | null;
+  created_at: string;
+}
+
+export interface DeliveryFile {
+  id: string;
+  user_email: string;
+  storage_path: string;
+  original_filename: string;
+  content_type: string;
+  kind: string;
+  size: number;
+  caption?: string | null;
+  created_at: string;
+}
+
+export interface InstaPost {
+  id: string;
+  storage_path: string;
+  caption?: string | null;
+  permalink?: string | null;
+  visible: boolean;
+  created_at: string;
+}
+
 export function galleryImageSrc(item: GalleryItem): string {
   if (item.image_url) return item.image_url;
   if (item.storage_path) return `/api/files/${item.storage_path}`;
   return "";
 }
 
-export function useAdminAuth() {
-  return useQuery({
-    queryKey: ["admin-me"],
-    retry: false,
-    staleTime: 30_000,
-    queryFn: async (): Promise<AdminUser> => {
+export function deliveryFileUrl(fileId: string, download = false): string {
+  return `/api/deliveries/${fileId}/file${download ? "?download=1" : ""}`;
+}
+
+export function formatSize(bytes: number): string {
+  if (bytes >= 1024 * 1024) return `${(bytes / (1024 * 1024)).toFixed(1)} MB`;
+  return `${Math.max(1, Math.round(bytes / 1024))} KB`;
+}
+
+async function fetchMe(): Promise<SessionUser> {
+  try {
+    return await apiGet<SessionUser>("/auth/me");
+  } catch (e) {
+    if (e instanceof ApiError && e.status === 401) {
       try {
-        return await apiGet<AdminUser>("/auth/me");
-      } catch (e) {
-        if (e instanceof ApiError && e.status === 401) {
-          try {
-            await apiPost("/auth/refresh");
-          } catch {
-            throw e;
-          }
-          return await apiGet<AdminUser>("/auth/me");
-        }
+        await apiPost("/auth/refresh");
+      } catch {
         throw e;
       }
+      return await apiGet<SessionUser>("/auth/me");
+    }
+    throw e;
+  }
+}
+
+export function useAuth() {
+  return useQuery({
+    queryKey: ["auth-me"],
+    queryFn: fetchMe,
+    retry: false,
+    staleTime: 30_000,
+  });
+}
+
+export function useAdminAuth() {
+  return useQuery({
+    queryKey: ["auth-me"],
+    queryFn: async () => {
+      const u = await fetchMe();
+      if (u.role !== "admin") throw new ApiError(403, { detail: "Admin access required" });
+      return u;
     },
+    retry: false,
+    staleTime: 30_000,
   });
 }
 

@@ -1,11 +1,12 @@
 export const SITE = {
-  name: "Crop Creation",
-  tagline: "Keerthan KA20 Photography",
+  name: "Keerthan KA20 Photography",
+  tagline: "Crop Creation Studio",
+  subName: "Crop Creation",
   owner: "Keerthan Kulal",
   phoneDisplay: "+91 95914 28115",
   phoneHref: "tel:+919591428115",
   whatsapp:
-    "https://wa.me/919591428115?text=Hi%20Crop%20Creation!%20I%27d%20like%20to%20book%20a%20shoot.",
+    "https://wa.me/919591428115?text=Hi%20Keerthan%20KA20%20Photography!%20I%27d%20like%20to%20book%20a%20shoot.",
   instagram: "https://www.instagram.com/keerthan_ka20_photography/",
   instagramHandle: "@keerthan_ka20_photography",
   address: "JQF2+W44, Kundapur–Agumbe Hwy, Balkur Proper, Karnataka 576211",

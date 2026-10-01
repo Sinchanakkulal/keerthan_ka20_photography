@@ -19,7 +19,7 @@ export default function AdminLogin() {
   const mutation = useMutation({
     mutationFn: () => apiPost<AdminUser>("/auth/login", { email: email.trim(), password }),
     onSuccess: (user) => {
-      queryClient.setQueryData(["admin-me"], user);
+      queryClient.setQueryData(["auth-me"], user);
       navigate("/admin");
     },
     onError: (e) => {

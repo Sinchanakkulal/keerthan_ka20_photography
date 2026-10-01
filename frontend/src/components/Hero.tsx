@@ -71,13 +71,13 @@ export function Hero() {
             className="font-mono text-xs uppercase tracking-[0.3em] text-gold"
             data-testid="hero-eyebrow"
           >
-            Crop Creation · Keerthan KA20 Photography
+            Keerthan KA20 Photography · Crop Creation
           </motion.p>
 
-          <h1 className="mt-6 font-heading text-5xl leading-[1.05] tracking-tight text-white sm:text-6xl lg:text-7xl">
-            <MaskedLine delay={0.45}>Timeless Frames.</MaskedLine>
+          <h1 className="mt-6 font-heading text-5xl leading-[1.05] tracking-tight text-white sm:text-6xl lg:text-7xl" data-testid="hero-title">
+            <MaskedLine delay={0.45}>You Dream It,</MaskedLine>
             <MaskedLine delay={0.58}>
-              Crafted in <em className="italic text-gold-soft">Karnataka.</em>
+              We <em className="italic text-gold-soft">Design It.</em>
             </MaskedLine>
           </h1>
 

@@ -1,12 +1,14 @@
 import { Navigate, useNavigate } from "react-router-dom";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { toast } from "sonner";
-import { Images, Inbox, Loader2, LogOut, Sparkles } from "lucide-react";
+import { Images, Inbox, Loader2, LogOut, Sparkles, Users } from "lucide-react";
 import { apiGet, apiPost } from "@/lib/api";
-import { useAdminAuth, type Enquiry, type GalleryItem } from "@/lib/auth";
+import { useAdminAuth, type Enquiry, type GalleryItem, type SessionUser } from "@/lib/auth";
 import { Logo } from "@/components/Logo";
 import { EnquiriesPanel } from "@/components/admin/EnquiriesPanel";
 import { GalleryPanel } from "@/components/admin/GalleryPanel";
+import { ClientsPanel } from "@/components/admin/ClientsPanel";
+import { InstaPanel } from "@/components/admin/InstaPanel";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 export default function Admin() {
@@ -22,6 +24,11 @@ export default function Admin() {
   const { data: gallery } = useQuery({
     queryKey: ["admin-gallery"],
     queryFn: () => apiGet<GalleryItem[]>("/gallery/all"),
+    enabled: !!me,
+  });
+  const { data: customers } = useQuery({
+    queryKey: ["customers"],
+    queryFn: () => apiGet<SessionUser[]>("/users"),
     enabled: !!me,
   });
 
@@ -73,17 +80,20 @@ export default function Admin() {
         <h1 className="font-heading text-3xl text-white" data-testid="admin-title">
           Studio Desk
         </h1>
-        <p className="mt-1 text-sm text-muted-foreground">Enquiries and gallery for Crop Creation.</p>
+        <p className="mt-1 text-sm text-muted-foreground">
+          Enquiries, gallery, clients and Instagram strip for Keerthan KA20 Photography.
+        </p>
 
-        <div className="mt-8 grid grid-cols-1 gap-4 sm:grid-cols-3">
+        <div className="mt-8 grid grid-cols-2 gap-4 lg:grid-cols-4">
           {[
             { icon: Inbox, label: "Total enquiries", value: (enquiries ?? []).length, testid: "stat-total-enquiries" },
             { icon: Sparkles, label: "New enquiries", value: newCount, testid: "stat-new-enquiries" },
             { icon: Images, label: "Gallery photos", value: (gallery ?? []).length, testid: "stat-gallery-count" },
+            { icon: Users, label: "Client accounts", value: (customers ?? []).length, testid: "stat-customers-count" },
           ].map((s) => (
             <div key={s.testid} className="flex items-center gap-4 rounded-xl border border-border bg-panel p-5" data-testid={s.testid}>
               <span className="flex h-10 w-10 items-center justify-center rounded-full border border-gold/30 bg-gold/10 text-gold">
-                <s.icon className="h-4.5 w-4.5" />
+                <s.icon className="h-4 w-4" />
               </span>
               <div>
                 <p className="font-heading text-2xl text-gold-soft">{s.value}</p>
@@ -101,12 +111,24 @@ export default function Admin() {
             <TabsTrigger value="gallery" data-testid="admin-tab-gallery">
               Gallery Manager
             </TabsTrigger>
+            <TabsTrigger value="clients" data-testid="admin-tab-clients">
+              Clients &amp; Delivery
+            </TabsTrigger>
+            <TabsTrigger value="insta" data-testid="admin-tab-insta">
+              Insta Strip
+            </TabsTrigger>
           </TabsList>
           <TabsContent value="enquiries" className="mt-6">
             <EnquiriesPanel />
           </TabsContent>
           <TabsContent value="gallery" className="mt-6">
             <GalleryPanel />
+          </TabsContent>
+          <TabsContent value="clients" className="mt-6">
+            <ClientsPanel />
+          </TabsContent>
+          <TabsContent value="insta" className="mt-6">
+            <InstaPanel />
           </TabsContent>
         </Tabs>
       </main>
