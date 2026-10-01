@@ -63,7 +63,14 @@ export function Navbar() {
             data-testid="nav-client-login"
             className="flex items-center gap-1.5 font-mono text-xs uppercase tracking-[0.2em] text-zinc-400 transition-colors duration-300 hover:text-gold-soft"
           >
-            <User className="h-3.5 w-3.5" /> Clients
+            <User className="h-3.5 w-3.5" /> Client Login
+          </Link>
+          <Link
+            to="/admin/login"
+            data-testid="nav-studio-login"
+            className="font-mono text-xs uppercase tracking-[0.2em] text-zinc-500 transition-colors duration-300 hover:text-gold-soft"
+          >
+            Studio Login
           </Link>
           <button
             type="button"
@@ -106,6 +113,13 @@ export function Navbar() {
               className="flex items-center gap-2 font-mono text-sm uppercase tracking-[0.2em] text-zinc-300"
             >
               <User className="h-4 w-4" /> Client Login
+            </Link>
+            <Link
+              to="/admin/login"
+              data-testid="nav-studio-login-mobile"
+              className="flex items-center gap-2 font-mono text-sm uppercase tracking-[0.2em] text-zinc-300"
+            >
+              Studio Login
             </Link>
             <button
               type="button"

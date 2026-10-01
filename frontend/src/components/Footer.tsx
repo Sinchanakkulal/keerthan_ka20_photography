@@ -65,6 +65,17 @@ export function Footer() {
           <p className="font-mono text-[11px] text-zinc-500">
             © 2026 {SITE.name} · {SITE.tagline} · {SITE.owner}
           </p>
+          <p className="font-mono text-[11px] text-zinc-500" data-testid="footer-developer-credit">
+            Developed by{" "}
+            <a
+              href="mailto:sinchanakulal04@gmail.com"
+              className="text-gold-soft transition-colors hover:text-gold-bright"
+              data-testid="footer-developer-email"
+            >
+              Sinchana Kulal
+            </a>{" "}
+            · sinchanakulal04@gmail.com
+          </p>
           <div className="flex items-center gap-5">
             <Link
               to="/portal"
