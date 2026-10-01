@@ -55,6 +55,11 @@ Build a website for "Crop Creation" (Keerthan KA20 Photography), a photo studio 
 - Removed Twilio WhatsApp alerts; enquiry alerts are email-only (to cropcreation1@gmail.com, verified 202)
 - New "Site Photos" admin tab: owner can swap all 11 homepage photos (hero background, 3 hero stack cards, about studio photo, 6 service cards) — upload replaces instantly, reset restores default; public GET /api/site-images + admin POST/DELETE /api/site-images/{slot}
 
+## Implemented (1 Oct 2026 — iteration 5)
+- Removed all dummy/test data: 9 enquiries (3 seeded + 6 test), demo customer account, demo approved email, demo delivery files — seed.py no longer creates them, so they never return
+- Security: admin login form no longer shows the real admin email as placeholder (now generic "Studio email")
+- Kept: 12 stock gallery placeholders (user-approved until real uploads) + owner's own uploaded photos (e.g. "devasiri")
+
 ## Pending user inputs
 - Owner uploads real portfolio photos (Gallery Manager + Site Photos tabs)
 

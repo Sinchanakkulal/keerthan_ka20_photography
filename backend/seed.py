@@ -30,13 +30,6 @@ GALLERY_SEED = [
     {"title": "Through the Lens", "category": "Studio", "caption": "Cinema glass, up close.", "location": "Balkur Studio", "meta": "Macro · f/8", "image_url": "https://images.unsplash.com/photo-1512790182412-b19e6d62bc39?crop=entropy&cs=srgb&fm=jpg&q=85&w=1200"},
 ]
 
-ENQUIRY_SEED = [
-    {"name": "Ashwitha Shetty", "phone": "+91 98450 11223", "event_type": "Wedding", "event_date": "2026-11-22", "location": "Kundapura", "message": "Full-day wedding + candid coverage, need album quote.", "status": "new"},
-    {"name": "Prathik Poojary", "phone": "+91 90080 33445", "event_type": "Pre-Wedding", "event_date": "2026-08-14", "location": "Udupi", "message": "Beach shoot at Malpe, evening slot preferred.", "status": "contacted"},
-    {"name": "Disha Nayak", "phone": "+91 97310 55667", "event_type": "Birthday / Event", "event_date": "2026-07-30", "location": "Mangalore", "message": "First birthday coverage, 3 hours.", "status": "booked"},
-]
-
-
 async def seed_data():
     if await db.gallery.count_documents({}) == 0:
         now = _ts()
@@ -53,54 +46,6 @@ async def seed_data():
         ]
         await db.gallery.insert_many(docs)
         print(f"Seeded {len(docs)} gallery items")
-
-    if await db.enquiries.count_documents({}) == 0:
-        docs = [{"id": str(uuid.uuid4()), **e, "created_at": _ts()} for e in ENQUIRY_SEED]
-        await db.enquiries.insert_many(docs)
-        print(f"Seeded {len(docs)} enquiries")
-
-    if not await db.allowed_emails.find_one({"email": DEMO_CUSTOMER_EMAIL}):
-        await db.allowed_emails.insert_one({
-            "id": str(uuid.uuid4()),
-            "email": DEMO_CUSTOMER_EMAIL,
-            "note": "Demo client account",
-            "created_at": _ts(),
-        })
-        print("Seeded demo allowed email")
-
-    if not await db.users.find_one({"email": DEMO_CUSTOMER_EMAIL}):
-        await db.users.insert_one({
-            "id": str(uuid.uuid4()),
-            "email": DEMO_CUSTOMER_EMAIL,
-            "password_hash": bcrypt.hashpw(DEMO_CUSTOMER_PASSWORD.encode("utf-8"), bcrypt.gensalt()).decode("utf-8"),
-            "name": "Demo Client",
-            "role": "customer",
-            "created_at": _ts(),
-        })
-        print("Seeded demo customer")
-
-    if await db.delivery_files.count_documents({}) == 0:
-        sample = Path("/app/frontend/public/studio/studio-albums.png")
-        if sample.exists():
-            try:
-                from server import put_object
-                data = sample.read_bytes()
-                result = await asyncio.to_thread(put_object, f"crop-creation/deliveries/{uuid.uuid4()}.png", data, "image/png")
-                await db.delivery_files.insert_one({
-                    "id": str(uuid.uuid4()),
-                    "user_email": DEMO_CUSTOMER_EMAIL,
-                    "storage_path": result["path"],
-                    "original_filename": "Album-Samples.png",
-                    "content_type": "image/png",
-                    "kind": "image",
-                    "size": result.get("size", len(data)),
-                    "caption": "Welcome sample from the studio",
-                    "is_deleted": False,
-                    "created_at": _ts(),
-                })
-                print("Seeded demo delivery file")
-            except Exception as e:
-                print(f"Demo delivery seed skipped: {e}")
 
 
 if __name__ == "__main__":
