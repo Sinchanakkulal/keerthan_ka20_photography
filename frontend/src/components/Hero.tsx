@@ -4,6 +4,7 @@ import { motion, useScroll, useTransform } from "motion/react";
 import { ArrowRight, MessageCircle, Star } from "lucide-react";
 import { SITE } from "@/lib/site";
 import { scrollToId } from "@/lib/smoothScroll";
+import { siteImage, useSiteImages } from "@/lib/siteImages";
 
 const EASE: [number, number, number, number] = [0.16, 1, 0.3, 1];
 
@@ -51,11 +52,14 @@ export function Hero() {
   const { scrollYProgress } = useScroll({ target: ref, offset: ["start start", "end start"] });
   const bgY = useTransform(scrollYProgress, [0, 1], ["0%", "22%"]);
   const fade = useTransform(scrollYProgress, [0, 0.75], [1, 0]);
+  const si = useSiteImages();
+  const heroSrc = siteImage("hero-bg", si);
+  const stack = STACK.map((shot, i) => ({ ...shot, src: siteImage(`hero-${i + 1}`, si) }));
 
   return (
     <section ref={ref} className="relative min-h-screen overflow-hidden" data-testid="hero-section">
       <motion.div style={{ y: bgY }} className="absolute inset-0 scale-110">
-        <img src={HERO_BG} alt="" className="h-full w-full object-cover" />
+        <img src={heroSrc} alt="" className="h-full w-full object-cover" />
         <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(11,12,14,0.62)_0%,rgba(11,12,14,0.82)_55%,#0B0C0E_100%)]" />
       </motion.div>
 
@@ -140,7 +144,7 @@ export function Hero() {
         </div>
 
         <div className="relative col-span-5 hidden h-[540px] lg:block" data-testid="hero-photo-stack">
-          {STACK.map((shot) => (
+          {stack.map((shot) => (
             <motion.div
               key={shot.src}
               initial={{ opacity: 0, y: 90, rotate: 0 }}

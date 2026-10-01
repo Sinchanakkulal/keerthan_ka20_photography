@@ -8,7 +8,7 @@ import { Logo } from "@/components/Logo";
 import { EnquiriesPanel } from "@/components/admin/EnquiriesPanel";
 import { GalleryPanel } from "@/components/admin/GalleryPanel";
 import { ClientsPanel } from "@/components/admin/ClientsPanel";
-import { InstaPanel } from "@/components/admin/InstaPanel";
+import { SitePhotosPanel } from "@/components/admin/SitePhotosPanel";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 export default function Admin() {
@@ -81,7 +81,7 @@ export default function Admin() {
           Studio Desk
         </h1>
         <p className="mt-1 text-sm text-muted-foreground">
-          Enquiries, gallery, clients and Instagram strip for Keerthan KA20 Photography.
+          Enquiries, gallery, clients and site photos for Keerthan KA20 Photography.
         </p>
 
         <div className="mt-8 grid grid-cols-2 gap-4 lg:grid-cols-4">
@@ -114,8 +114,8 @@ export default function Admin() {
             <TabsTrigger value="clients" data-testid="admin-tab-clients">
               Clients &amp; Delivery
             </TabsTrigger>
-            <TabsTrigger value="insta" data-testid="admin-tab-insta">
-              Insta Strip
+            <TabsTrigger value="site-photos" data-testid="admin-tab-site-photos">
+              Site Photos
             </TabsTrigger>
           </TabsList>
           <TabsContent value="enquiries" className="mt-6">
@@ -127,8 +127,8 @@ export default function Admin() {
           <TabsContent value="clients" className="mt-6">
             <ClientsPanel />
           </TabsContent>
-          <TabsContent value="insta" className="mt-6">
-            <InstaPanel />
+          <TabsContent value="site-photos" className="mt-6">
+            <SitePhotosPanel />
           </TabsContent>
         </Tabs>
       </main>

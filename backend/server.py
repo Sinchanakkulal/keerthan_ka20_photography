@@ -171,36 +171,7 @@ async def send_email(*, to: str, subject: str, html: str) -> Optional[str]:
         return None
 
 
-def _send_whatsapp_sync(body: str):
-    from twilio.rest import Client
-    twilio_client = Client(os.environ["TWILIO_ACCOUNT_SID"], os.environ["TWILIO_AUTH_TOKEN"])
-    from_num = os.environ.get("TWILIO_WHATSAPP_FROM", "whatsapp:+14155232386")
-    to_num = os.environ.get("OWNER_WHATSAPP", "whatsapp:+919591428115")
-    twilio_client.messages.create(from_=from_num, to=to_num, body=body)
-
-
 async def notify_owner_enquiry(e: "Enquiry"):
-    lines = [
-        f"New enquiry — {EMAIL_FROM_NAME}",
-        f"Name: {e.name}",
-        f"Phone: {e.phone}",
-        f"Event: {e.event_type}",
-    ]
-    if e.event_date:
-        lines.append(f"Date: {e.event_date}")
-    if e.location:
-        lines.append(f"Location: {e.location}")
-    if e.message:
-        lines.append(f"Message: {e.message}")
-    text_body = "\n".join(lines)
-
-    if os.environ.get("TWILIO_ACCOUNT_SID") and os.environ.get("TWILIO_AUTH_TOKEN"):
-        try:
-            await asyncio.to_thread(_send_whatsapp_sync, text_body)
-            logger.info("WhatsApp alert sent to owner")
-        except Exception as err:
-            logger.error("WhatsApp alert failed: %s", err)
-
     if OWNER_ALERT_EMAIL:
         rows = "".join(
             f'<tr><td style="padding:6px 12px;color:#888;font-size:13px">{escape(k)}</td>'
@@ -324,7 +295,7 @@ async def ensure_app_indexes():
     await db.allowed_emails.create_index("email", unique=True)
     await db.delivery_files.create_index("id", unique=True)
     await db.delivery_files.create_index("user_email")
-    await db.insta_posts.create_index("id", unique=True)
+    await db.site_images.create_index("slot", unique=True)
 
 
 @asynccontextmanager
@@ -427,21 +398,6 @@ class DeliveryFile(BaseModel):
     size: int
     caption: Optional[str] = None
     created_at: str
-
-
-class InstaPost(BaseModel):
-    id: str
-    storage_path: str
-    caption: Optional[str] = None
-    permalink: Optional[str] = None
-    visible: bool = True
-    created_at: str
-
-
-class InstaPostUpdate(BaseModel):
-    caption: Optional[str] = None
-    permalink: Optional[str] = None
-    visible: Optional[bool] = None
 
 
 # ---- Routes ----
@@ -788,26 +744,24 @@ async def serve_delivery(file_id: str, download: int = 0, user: dict = Depends(g
     return RawResponse(content=data, media_type=doc.get("content_type", content_type), headers=headers)
 
 
-# ---- Instagram strip (owner-curated) ----
-@api_router.get("/insta-strip", response_model=List[InstaPost])
-async def public_insta_strip():
-    docs = await db.insta_posts.find({"is_deleted": {"$ne": True}, "visible": True}, {"_id": 0}).sort("created_at", -1).to_list(24)
-    return [InstaPost(**d) for d in docs]
+# ---- Site images (owner-swappable homepage photos) ----
+SITE_IMAGE_SLOTS = {
+    "hero-bg", "hero-1", "hero-2", "hero-3", "about-studio",
+    "service-wedding", "service-prewedding", "service-albums",
+    "service-frames", "service-video", "service-digital",
+}
 
 
-@api_router.get("/insta-strip/all", response_model=List[InstaPost])
-async def admin_insta_strip(admin: dict = Depends(require_admin)):
-    docs = await db.insta_posts.find({"is_deleted": {"$ne": True}}, {"_id": 0}).sort("created_at", -1).to_list(100)
-    return [InstaPost(**d) for d in docs]
+@api_router.get("/site-images")
+async def public_site_images():
+    docs = await db.site_images.find({}, {"_id": 0}).to_list(50)
+    return {d["slot"]: f"/api/files/{d['storage_path']}" for d in docs}
 
 
-@api_router.post("/insta-strip/upload", response_model=InstaPost, status_code=201)
-async def upload_insta_post(
-    file: UploadFile = File(...),
-    caption: str = Form(""),
-    permalink: str = Form(""),
-    admin: dict = Depends(require_admin),
-):
+@api_router.post("/site-images/{slot}")
+async def upload_site_image(slot: str, file: UploadFile = File(...), admin: dict = Depends(require_admin)):
+    if slot not in SITE_IMAGE_SLOTS:
+        raise HTTPException(status_code=400, detail="Unknown image slot")
     filename = file.filename or ""
     ext = filename.rsplit(".", 1)[-1].lower() if "." in filename else ""
     if ext not in ALLOWED_IMAGE_TYPES:
@@ -815,45 +769,23 @@ async def upload_insta_post(
     data = await file.read()
     if len(data) > 25 * 1024 * 1024:
         raise HTTPException(status_code=400, detail="Image must be under 25 MB")
-    path = f"{APP_NAME}/insta/{uuid.uuid4()}.{ext}"
+    path = f"{APP_NAME}/site/{slot}-{uuid.uuid4()}.{ext}"
     try:
         result = await asyncio.to_thread(put_object, path, data, ALLOWED_IMAGE_TYPES[ext])
     except Exception as e:
-        logger.error("Insta upload failed: %s", e)
+        logger.error("Site image upload failed: %s", e)
         raise HTTPException(status_code=502, detail="Photo storage is unavailable right now")
-    doc = InstaPost(
-        id=str(uuid.uuid4()),
-        storage_path=result["path"],
-        caption=caption.strip() or None,
-        permalink=permalink.strip() or None,
-        visible=True,
-        created_at=datetime.now(timezone.utc).isoformat(),
+    await db.site_images.update_one(
+        {"slot": slot},
+        {"$set": {"slot": slot, "storage_path": result["path"], "updated_at": datetime.now(timezone.utc).isoformat()}},
+        upsert=True,
     )
-    await db.insta_posts.insert_one(doc.model_dump())
-    return doc
+    return {"slot": slot, "url": f"/api/files/{result['path']}"}
 
 
-@api_router.patch("/insta-strip/{post_id}", response_model=InstaPost)
-async def update_insta_post(post_id: str, body: InstaPostUpdate, admin: dict = Depends(require_admin)):
-    updates = {k: v for k, v in body.model_dump().items() if v is not None}
-    if not updates:
-        raise HTTPException(status_code=400, detail="Nothing to update")
-    doc = await db.insta_posts.find_one_and_update(
-        {"id": post_id, "is_deleted": {"$ne": True}},
-        {"$set": updates},
-        projection={"_id": 0},
-        return_document=ReturnDocument.AFTER,
-    )
-    if not doc:
-        raise HTTPException(status_code=404, detail="Post not found")
-    return InstaPost(**doc)
-
-
-@api_router.delete("/insta-strip/{post_id}")
-async def delete_insta_post(post_id: str, admin: dict = Depends(require_admin)):
-    res = await db.insta_posts.update_one({"id": post_id}, {"$set": {"is_deleted": True}})
-    if res.matched_count == 0:
-        raise HTTPException(status_code=404, detail="Post not found")
+@api_router.delete("/site-images/{slot}")
+async def reset_site_image(slot: str, admin: dict = Depends(require_admin)):
+    await db.site_images.delete_one({"slot": slot})
     return {"ok": True}
 
 

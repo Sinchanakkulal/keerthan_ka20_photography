@@ -2,6 +2,7 @@ import { Star } from "lucide-react";
 import { SiInstagram } from "@icons-pack/react-simple-icons";
 import { Reveal, Eyebrow } from "@/components/Reveal";
 import { SITE } from "@/lib/site";
+import { siteImage, useSiteImages } from "@/lib/siteImages";
 
 const STATS = [
   { value: SITE.rating, label: "Google rating", testid: "stat-rating" },
@@ -11,6 +12,7 @@ const STATS = [
 ];
 
 export function About() {
+  const si = useSiteImages();
   return (
     <section id="studio" className="relative mx-auto max-w-7xl px-6 py-28 lg:py-36" data-testid="about-section">
       <div className="grid grid-cols-12 items-center gap-12">
@@ -19,8 +21,8 @@ export function About() {
             <div className="absolute -left-4 -top-4 h-full w-full rounded-2xl border border-gold/25" />
             <div className="group relative overflow-hidden rounded-2xl border border-border">
               <img
-                src="/studio/studio-interior.png"
-                alt="Inside the Crop Creation studio at Balkur Proper"
+                src={siteImage("about-studio", si)}
+                alt="Inside the Keerthan KA20 Photography studio at Balkur Proper"
                 className="aspect-[16/10] w-full object-cover transition-transform duration-700 group-hover:scale-105"
                 loading="lazy"
               />

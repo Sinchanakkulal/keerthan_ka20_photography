@@ -56,15 +56,6 @@ export interface DeliveryFile {
   created_at: string;
 }
 
-export interface InstaPost {
-  id: string;
-  storage_path: string;
-  caption?: string | null;
-  permalink?: string | null;
-  visible: boolean;
-  created_at: string;
-}
-
 export function galleryImageSrc(item: GalleryItem): string {
   if (item.image_url) return item.image_url;
   if (item.storage_path) return `/api/files/${item.storage_path}`;

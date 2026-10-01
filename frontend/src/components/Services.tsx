@@ -1,6 +1,7 @@
 import { Heart, Clapperboard, Album, Frame, Video, Sparkles } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 import { Reveal, Eyebrow } from "@/components/Reveal";
+import { siteImage, useSiteImages } from "@/lib/siteImages";
 
 interface Service {
   icon: LucideIcon;
@@ -68,6 +69,7 @@ const SERVICES: Service[] = [
 ];
 
 export function Services() {
+  const si = useSiteImages();
   return (
     <section id="services" className="mx-auto max-w-7xl px-6 py-28" data-testid="services-section">
       <Reveal>
@@ -91,7 +93,7 @@ export function Services() {
               data-testid={s.testid}
             >
               <img
-                src={s.image}
+                src={siteImage(s.testid.replace("service-card-", "service-"), si)}
                 alt={s.title}
                 loading="lazy"
                 className="absolute inset-0 h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"

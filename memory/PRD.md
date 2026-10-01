@@ -50,16 +50,18 @@ Build a website for "Crop Creation" (Keerthan KA20 Photography), a photo studio 
 - Enquiry email alerts now go to the owner's real inbox (cropcreation1@gmail.com) — send verified (202)
 - Top nav has Client Login + Studio Login links; footer has "Developed by Sinchana Kulal · sinchanakulal04@gmail.com"
 
+## Implemented (1 Oct 2026 — iteration 4)
+- Removed Instagram strip feature entirely (routes, admin tab, frontend strip, DB collection dropped)
+- Removed Twilio WhatsApp alerts; enquiry alerts are email-only (to cropcreation1@gmail.com, verified 202)
+- New "Site Photos" admin tab: owner can swap all 11 homepage photos (hero background, 3 hero stack cards, about studio photo, 6 service cards) — upload replaces instantly, reset restores default; public GET /api/site-images + admin POST/DELETE /api/site-images/{slot}
+
 ## Pending user inputs
-- Twilio Account SID + Auth Token for WhatsApp alerts (email alerts already live)
+- Owner uploads real portfolio photos (Gallery Manager + Site Photos tabs)
 
 ## Backlog
-- P1: Replace stock placeholders with real portfolio photos (owner uploads via admin)
 - P1: Wedding packages/pricing section (Essential, Royal, Signature)
-- P2: True Instagram API auto-sync (needs Meta app + 60-day token refresh)
 - P2: Delivery expiry dates / per-folder organization
 
 ## Next tasks
-1. Add Twilio credentials → WhatsApp alerts live
+1. Owner swaps in real photos via Site Photos + Gallery Manager
 2. Packages section
-3. Owner uploads real shoot photos
